@@ -1,0 +1,58 @@
+/*Body Code Here*/
+body {
+	background-color: #0058e3;
+}
+
+#wrapper {
+	display: block;
+	margin: auto;
+	min-width: 100%;
+	min-height: 350px;
+}
+
+.col {
+	display: block;
+	margin: auto;
+	min-width: 50%;
+	min-height: 350px;
+	float: left;
+	margin-bottom: 100px;
+}
+
+#add {
+	display: block;
+	margin: auto;
+	min-width: 50%;
+}
+
+ /*Text Code Here*/
+
+h1, h2 {
+	font-family: 'Press Start 2P', cursive;
+	margin-bottom: 20px;
+}
+
+li {
+	/*font-family: 'Cabin', sans-serif;*/
+	font-family: 'Press Start 2P', cursive;
+	font-size: 18px;
+	color: #e38b00;
+	list-style: none;
+	margin-bottom: 20px;
+}
+
+li button:hover{
+	/*background-color: red;*/
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#burger:hover{
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+/*Image Code Here*/
+img {
+	display: block;
+	margin: auto;
+	width: 180px;
+}
