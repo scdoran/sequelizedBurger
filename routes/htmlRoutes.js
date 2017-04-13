@@ -13,7 +13,7 @@ module.exports = function(app) {
 
   // Each of the below routes just handles the HTML page that the user gets sent to.
 
-  // index route loads index.html
+  // index route loads index.handlebars
   app.get("/", function(req, res) {
 
   	db.Burger.findAll({}).then(function(burgers){
@@ -25,19 +25,34 @@ module.exports = function(app) {
 
   	var burger = req.body.burger_name;
 
-	db.Burger.create({burger_name: burger, devoured: false}).then(function(burger){
-		res.render("index", {burger:burger});
+	db.Burger.create({burger_name: burger}).then(function(burger){
+		res.redirect("/");
 	});
 });
 
-// This is pointing to burger.js to updateOne, which will point to the ORM in order to update the data from the database based on the id of the button that was clicked on.
+// This is directly pointing to MySQL by identifying the id of the burger that was clicked on 
+// and then updating the devoured to being true or false.
 app.put("/:id", function(req, res){
 
-	db.Burger.findById(req.params.id).then(burger=>{
-		var devoured = req.body.devoured;
+	var devoured = req.body.devoured;
+	console.log("id: " + req.params.id + " devoured: " + devoured);
+	
+	// var condition = "id = " + req.params.id;
 
-		burger.updateBurger(devoured).then(function(data){
-			res.render("index", {burger:data});
+	// burger.updateOne({
+	// 	devoured: req.body.devoured
+	// }, condition, function(){
+	// 	res.redirect("/");
+	// });
+
+	db.Burger.findOne({
+		where: {
+			id: req.params.id
+		}
+	}).then(burger=>{
+
+		burger.update({devoured:devoured}).then(function(data){
+			res.redirect("/");
 		});
 	});
 });
