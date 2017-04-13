@@ -4,7 +4,6 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var path = require("path");
-var fs = require("fs");
 var handlebars = require("express-handlebars");
 var methodOverride = require("method-override");
 
@@ -24,7 +23,7 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 app.use(express.static("./public"));
 app.use(express.static(path.join(__dirname, './public')));
 // Override with POST having ?_method=DELETE
-// app.use(methodOverride("_method"));
+app.use(methodOverride("_method"));
 
 app.engine("handlebars", handlebars({defaultLayout: "main"}));
 app.set("view engine", "handlebars");
@@ -32,8 +31,7 @@ app.set("view engine", "handlebars");
 
 // Routes =============================================================
 
-require("./routes/htmlRoutes.js")(app);
-// require("./routes/burgers.js")(app);
+require("./controllers/burger-controller.js")(app);
 
 // Syncing our sequelize models and then starting our express app
 db.sequelize.sync({ force: false }).then(function() {

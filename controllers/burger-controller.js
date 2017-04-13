@@ -4,19 +4,17 @@
 
 // Dependencies
 // =============================================================
-var path = require("path");
+var express = require("express");
 var db = require("../models");
 
 // Routes
 // =============================================================
 module.exports = function(app) {
 
-  // Each of the below routes just handles the HTML page that the user gets sent to.
-
   // index route loads index.handlebars
   app.get("/", function(req, res) {
 
-  	db.Burger.findAll({}).then(function(burgers){
+  	db.burger.findAll({}).then(function(burgers){
 		res.render("index", {burger: burgers});
 	});
   });
@@ -25,7 +23,7 @@ module.exports = function(app) {
 
   	var burger = req.body.burger_name;
 
-	db.Burger.create({burger_name: burger}).then(function(burger){
+	db.burger.create({burger_name: burger}).then(function(burger){
 		res.redirect("/");
 	});
 });
@@ -36,26 +34,24 @@ app.put("/:id", function(req, res){
 
 	var devoured = req.body.devoured;
 	console.log("id: " + req.params.id + " devoured: " + devoured);
-	
-	// var condition = "id = " + req.params.id;
 
-	// burger.updateOne({
-	// 	devoured: req.body.devoured
-	// }, condition, function(){
-	// 	res.redirect("/");
-	// });
-
-	db.Burger.findOne({
+	db.burger.update({devoured:devoured}, {
 		where: {
 			id: req.params.id
 		}
-	}).then(burger=>{
-
-		burger.update({devoured:devoured}).then(function(data){
+	}).then(function(){
 			res.redirect("/");
-		});
 	});
 });
 
+app.delete("/:id", function(req, res){
+	db.burger.destroy({
+		where: {
+			id: req.params.id
+		}
+	}).then(function(){
+		res.redirect("/");
+	});
+});
 
 };
