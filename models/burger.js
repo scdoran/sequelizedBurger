@@ -5,27 +5,6 @@ module.exports = function(sequelize, DataTypes){
 		devoured: {type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false}	
 	});
 
-	Burger.sync({force: true}).then(function(){
-		return Burger.create(
-			{
-				burger_name: "Double Bacon Cheeseburger",
-				devoured: false
-			},
-			{
-				burger_name: "Turkey Burger",
-				devoured: false
-			}, 
-			{
-				burger_name: "Beefless Burger",
-				devoured: false
-			},
-			{
-				burger_name: "Goodburger",
-				devoured: false
-			}
-		)
-	});
-
 	// Exporting burger to MySQL.
 	return Burger;
-}
+};
