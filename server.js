@@ -9,7 +9,7 @@ var methodOverride = require("method-override");
 
 // var PORT = 8000;
 var app = express();
-const PORT = process.env.PORT || 8000;
+// const PORT = process.env.PORT || 8000;
 
 var db = require("./models");
 
@@ -35,7 +35,7 @@ require("./controllers/burger-controller.js")(app);
 
 // Syncing our sequelize models and then starting our express app
 db.sequelize.sync({ force: false }).then(function() {
-  app.listen(PORT, function() {
-    console.log("App listening on PORT " + PORT);
-  });
+  app.listen(process.env.PORT || 3000, function(){
+  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+	});
 });
